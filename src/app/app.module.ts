@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartComponent } from './chart/chart.component';
 import { MessagesComponent } from './messages/messages.component';
+import { TableComponent } from './table/table.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { MessagesComponent } from './messages/messages.component';
     AppComponent,
     DashboardComponent,
     ChartComponent,
-    MessagesComponent
+    MessagesComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

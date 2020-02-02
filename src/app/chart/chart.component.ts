@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
-import { Hero } from "../hero";
+import { Hero } from '../hero'
+import { DataService } from "../data.service";
 
 @Component({
   selector: 'app-chart',
@@ -9,11 +12,26 @@ import { Hero } from "../hero";
 })
 export class ChartComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+	  private route: ActivatedRoute,
+	  private dataService: DataService,
+	  private location: Location
+  ) { }
 
-  @Input() hero: Hero;
+  hero: Hero;
 
-  ngOnInit() {
+  ngOnInit(): void {
+	  this.getHero();
+  }
+
+  getHero(): void {
+	  const id = +this.route.snapshot.paramMap.get('id');
+	  this.dataService.getHero(id)
+	  	.subscribe(hero => this.hero = hero);
+  }
+
+  goBack() {
+	  this.location.back();
   }
 
 }

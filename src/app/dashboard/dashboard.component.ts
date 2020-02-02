@@ -11,15 +11,8 @@ import { DataService } from '../data.service';
 })
 export class DashboardComponent implements OnInit {
 
-	dude = 'rinebob';
 	heroes: Hero[];
-	selectedHero: Hero;
-
-	hero: Hero = {
-		id: 1,
-		name: 'Windbag'
-	};
-
+	
 	constructor(private dataService: DataService) { }
 
 	ngOnInit() {
@@ -29,10 +22,6 @@ export class DashboardComponent implements OnInit {
 	getHeroes(): void {
 		this.dataService.getHeroes()
 			.subscribe(heroes => this.heroes = heroes);
-	}
-
-	onSelect(hero) {
-		this.selectedHero = hero;
 	}
 
 }
