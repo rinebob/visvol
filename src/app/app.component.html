@@ -1,15 +1,47 @@
-<h1>Welcome to {{ title }}!</h1>
-<!-- <nav>
-	<a routerLink="/heroes">Dudes</a>
-	<a routerLink="/dashboard">Coolest dudes...</a>
-</nav>
-<router-outlet></router-outlet>
-<app-messages></app-messages> -->
+<mat-sidenav-container *ngIf="internalSite"
+class="sidenav-container">
+  <mat-sidenav #sidenav class="sidenav" 
+      [mode]="'push'"
+      [(opened)]="opened">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard">Dashboard</a>
+	  <a mat-list-item routerLink="/positions">Positions</a>
+	  <a mat-list-item routerLink="/iv-rank">IV Rank Table</a>
+      <a mat-list-item routerLink="/option-chain">Option Chains</a>
+	  <a mat-list-item routerLink="/calendar">Calendar</a>
+      <a mat-list-item routerLink="/charts">Charts</a>
+	  <a mat-list-item routerLink="/strategies">Strategies</a>
+	  <a mat-list-item routerLink="/tools">Tools</a>
+	  <a mat-list-item routerLink="/account">Account</a>
+	  <a mat-list-item routerLink="/help">Help</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="top-toolbar" color="primary">
+	<button
+		type="button"
+		
+		class="mat-icon-button mat-button-base menu-button"
+		(click)="sidenav.toggle()">
+		<mat-icon>menu</mat-icon>
+	</button>
+	<span>Visual Volatility</span>
+	<span class="spacer"></span>
+	<a class="toolbar-item" routerLink="/dashboard">Dashboard</a>
+	<a class="toolbar-item" routerLink="/calendar">Calendar</a>
+	<a class="toolbar-item" routerLink="/charts">Charts</a>
+	<a class="toolbar-item" routerLink="/strategies">Strategies</a>
+	<a class="toolbar-item" routerLink="/tools">Tools</a>
+	<a class="toolbar-item" routerLink="/account">Account</a>
+	<a class="toolbar-item" routerLink="/help">Help</a>
+	<a class="toolbar-item" routerLink="/welcome">Logout</a>
 
-<!-- <mat-slider min="1" max="1000" step="1" value="1"></mat-slider> -->
-<!-- <app-address-form></app-address-form> -->
-<!-- <app-material-dashboard></app-material-dashboard> -->
-<!-- <app-material-table></app-material-table> -->
-<!-- <app-material-tree></app-material-tree> -->
-<!-- <app-material-nav></app-material-nav> -->
-<app-material-dragdrop></app-material-dragdrop>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<div *ngIf="!internalSite">
+	<router-outlet></router-outlet>
+</div>
+

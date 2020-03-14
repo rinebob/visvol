@@ -1,4 +1,166 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap');
+
+/* angular material theme */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* css variables */
+
+:root {
+	--primaryColor: #3fb1d4;
+	--mainWhite: #ffffff;
+	--offWhite: #f7f7f7;
+	--mainBlack: #222222;
+	--mainGrey: #ececec;
+	--darkGrey: #afafaf;
+	-mainTransition: all 2s linear;
+	--mainSpacing: 0.25rem;
+	--lightShadow: 2px 5px 3px 0 rgba(0,0,0,.25);
+	--darkShadow: 4px 10px 5px 0 rgba(0,0,0,.5);
+}
+
+/* reset */
+::before, ::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/*************************** global styles ***********************/
+
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+body { 
+	margin: 0;
+	font-family: Lato, sans-serif;
+	color: var(--mainBlack);
+	background-color: var(--offWhite);
+	line-height: 1.4;
+	font-size: 1rem;
+
+}
+
+
+img:not(.nav-logo) {
+	width: 100%;
+	display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Poppins, sans-serif;
+	margin-bottom: 1.25rem;
+	letter-spacing: var(--mainSpacing);
+
+}
+
+h1 {
+	font-size: 3.3rem;
+}
+
+h2 {
+	font-size: 2.3rem;
+}
+
+h3 {
+	font-size: 2rem;
+}
+
+h4 {
+	font-size: 1.2rem;
+}
+
+p {
+	margin-bottom: 1.25rem;
+	line-height: 2;
+	font-weight: 300;
+}
+
+a {
+	text-decoration: none;
+}
+
+
+.btn-white, .btn-primary {
+	text-transform: uppercase;
+	letter-spacing: var(--mainSpacing);
+	color: var(--mainWhite);
+	border: 2px solid var(--mainWhite);
+	padding: 0.9rem 1.6rem;
+	display: inline-block;
+	transition: var(--mainTransition);
+	cursor: pointer;
+}
+
+.btn-white:hover {
+	background: var(--mainWhite);
+	color: var(--primaryColor);
+}
+
+.btn-primary {
+	background: var(--primaryColor);
+	color: var(--mainWhite);
+	border-color: var(--primaryColor);
+
+}
+
+.btn-primary:hover {
+	background: transparent;
+	color: var(--primaryColor);
+}
+
+
+
+.section {
+	padding: 5rem 0;
+}
+
+.section-center {
+	width: 85vw;
+	margin: 4rem auto 2rem auto;
+	max-width: 1170px;
+}
+
+.title-wrapper {
+	margin-bottom: 2rem;
+}
+
+.title {
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 2.6rem;
+	letter-spacing: 0.5rem;
+
+}
+
+.subtitle {
+	color: var(--primaryColor);
+}
+
+/*************************** end global styles ***********************/
+
+/****************** navbar ***********************/
+/****************** end navbar ***********************/
+
+/****************** hero ***********************/
+/****************** end hero ***********************/
+
+
+
+
+
+
+
+
+
+
+
+/* for component name in upper left corner of component html */
+.breadcrumb {
+	font-size: 6px;
+	color: #607D8B;	
+	/* color: blue; */
+}

@@ -1,0 +1,38 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="sidenav" 
+      [mode]="'push'"
+      [(opened)]="opened">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Dashboard</a>
+	  <a mat-list-item href="#">Positions</a>
+	  <a mat-list-item href="#">IV Rank Table</a>
+      <a mat-list-item href="#">Option Chains</a>
+      <a mat-list-item href="#">Charts</a>
+	  <a mat-list-item href="#">Strategies</a>
+	  <a mat-list-item href="#">Tools</a>
+	  <a mat-list-item href="#">Account</a>
+	  <a mat-list-item href="#">Help</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="top-toolbar" color="primary">
+      <button
+        type="button"
+        mat-icon-button
+        (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Visual Volatility</span>
+	  <span class="spacer"></span>
+	  <span><a class="toolbar-item" href="#">Dashboard</a></span>
+	  <span><a class="toolbar-item" href="#">Tools</a></span>
+	  <span><a class="toolbar-item" href="#">Strategies</a></span>
+		<a class="toolbar-item" href="#">Account</a>
+	  	<a class="toolbar-item" href="#">Help</a>
+		<a class="toolbar-item" href="#">Logout</a>
+
+    </mat-toolbar>
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
