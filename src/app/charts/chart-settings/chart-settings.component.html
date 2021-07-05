@@ -1,1 +1,18 @@
-<p>chart-settings works!</p>
+<form [formGroup]="settingsForm" class="settings-form" (ngSubmit)="submit()">
+
+    <mat-form-field appearance="fill">
+        <input matInput type="text"
+                formControlName="tickerControl"
+                placeholder="Ticker">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-select formControlName="timeframeControl"
+                    [(value)]="defaultTimeframe"
+                    placeholder="Time frame">
+            <mat-option *ngFor="let item of timeframes"
+                        [value]="item" >{{item}}</mat-option>
+
+        </mat-select>
+    </mat-form-field>
+
+</form>
