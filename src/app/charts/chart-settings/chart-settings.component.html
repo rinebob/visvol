@@ -5,11 +5,29 @@
                 formControlName="tickerControl"
                 placeholder="Ticker">
     </mat-form-field>
+    
     <mat-form-field appearance="fill">
         <mat-select formControlName="timeframeControl"
-                    [(value)]="defaultTimeframe"
                     placeholder="Time frame">
             <mat-option *ngFor="let item of timeframes"
+                        [value]="item" >{{item}}</mat-option>
+
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-select formControlName="chartTypeControl"
+                    placeholder="Chart type">
+            <mat-option *ngFor="let item of chartTypes"
+                        [value]="item" >{{item}}</mat-option>
+
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-select formControlName="scaleTypeControl"
+                    placeholder="Scale type">
+            <mat-option *ngFor="let item of scaleTypes"
                         [value]="item" >{{item}}</mat-option>
 
         </mat-select>
