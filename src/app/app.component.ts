@@ -13,7 +13,7 @@ import { map, shareReplay } from 'rxjs/operators';
 export class AppComponent {
 	title = 'VisVol';
 
-	internalSite = false;
+	internalSite = true;
 
 	updateStatus(){
 		this.internalSite != this.internalSite;

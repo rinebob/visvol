@@ -134,5 +134,8 @@
       }
     }
   },
-  "defaultProject": "visvol"
+  "defaultProject": "visvol",
+  "cli": {
+    "analytics": false
+  }
 }
