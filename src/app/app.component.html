@@ -4,7 +4,7 @@ class="sidenav-container">
       [mode]="'push'"
       [(opened)]="opened">
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
+    <mat-nav-list (click)="sidenav.toggle()">
       <a mat-list-item routerLink="/dashboard">Dashboard</a>
 	  <a mat-list-item routerLink="/positions">Positions</a>
 	  <a mat-list-item routerLink="/iv-rank">IV Rank Table</a>
