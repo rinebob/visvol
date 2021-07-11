@@ -12,7 +12,8 @@ import { CalendarComponent } from './main/calendar/calendar.component';
 import { ChartsMainComponent } from './charts/charts-main/charts-main.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+	// { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+	{ path: '', redirectTo: '/charts', pathMatch: 'full' },
 	
 	// main module
 	
