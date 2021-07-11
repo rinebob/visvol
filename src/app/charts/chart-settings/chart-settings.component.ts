@@ -29,22 +29,26 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
   readonly chartTypes = Object.values(ChartType);
   readonly scaleTypes = Object.values(ScaleType);
   readonly settingsForm: FormGroup;
+  tickerControl = new FormControl('TSLA');
+  timeframeControl = new FormControl(TimeFrame.ONE_DAY);
+  chartTypeControl = new FormControl(ChartType.LINE);
+  scaleTypeControl = new FormControl(ScaleType.LINEAR);
+  startDateControl = new FormControl('');
+  endDateControl = new FormControl('');
+  
+  
   settingsFormValues: ChartSetting = defaultChartSetting;
 
   // chartSettings$: Observable<ChartSetting>;
 
   constructor() { 
     this.settingsForm = new FormGroup({
-      tickerControl: new FormControl('TSLA'),
-      timeframeControl: new FormControl(TimeFrame.ONE_DAY),
-      chartTypeControl: new FormControl(ChartType.LINE),
-      scaleTypeControl: new FormControl(ScaleType.LINEAR),
-      // tickerControl: new FormControl(''),
-      // timeframeControl: new FormControl(''),
-      // chartTypeControl: new FormControl(''),
-      // scaleTypeControl: new FormControl(''),
-      // startDateControl: new FormControl(''),
-      // endDateControl: new FormControl(''),
+      tickerControl: this.tickerControl,
+      timeframeControl: this.timeframeControl,
+      chartTypeControl: this.chartTypeControl,
+      scaleTypeControl: this.scaleTypeControl,
+      startDateControl: this.startDateControl,
+      endDateControl: this.endDateControl,
   
     });
     

@@ -18,6 +18,7 @@ import { ChartsModule } from './charts/charts.module';
 import { MainModule } from './main/main.module';
 import { StrategiesModule } from './strategies/strategies.module';
 import { ToolsModule } from './tools/tools.module';
+import {WelcomeModule } from './welcome/welcome.module';
 
 import { AppComponent } from './app.component';
 
@@ -44,6 +45,7 @@ import { AppComponent } from './app.component';
 	StrategiesModule,
 	ToolsModule,
 	MainModule,
+	WelcomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
