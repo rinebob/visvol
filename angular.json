@@ -28,8 +28,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "es5BrowserSupport": true
-          },
+            },
           "configurations": {
             "production": {
               "fileReplacements": [
@@ -43,7 +42,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -52,6 +50,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
