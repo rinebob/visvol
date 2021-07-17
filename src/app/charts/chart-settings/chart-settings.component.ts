@@ -71,12 +71,12 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
   
     });
     
-    this.settingsForm.valueChanges.pipe(
-      takeUntil(this.destroy)
-    ).subscribe(values => {
+    this.settingsForm.valueChanges
+    .pipe(takeUntil(this.destroy))
+    .subscribe(values => {
       this.settingsFormValues = values;
       console.log('cS ctor t.sFV values: ', values);
-      this.chartSettings.emit(values);
+      
     });
   }
 
@@ -96,6 +96,7 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    this.chartSettings.emit(this.settingsFormValues);
     console.log('c s form submitted');
   }
 

@@ -1,5 +1,8 @@
+
+// Alphavantage API endpoint URL
+export const AV_URL = 'https://www.alphavantage.co'
 // Alphavantage endpoint parameters
-export enum AlphavantageEnpointParams {
+export enum AvParams {
     FUNCTION = 'function',
     SYMBOL = 'symbol',
     INTERVAL = 'interval',
@@ -9,6 +12,29 @@ export enum AlphavantageEnpointParams {
     DATATYPE = 'datatype',
     APIKEY = 'apikey',
   }
+
+  // Shape of daily weekly monthly request
+  export interface AlphavantageRequest {
+    function: TimeSeriesFunction;
+    symbol: string;
+    outputsize?: OutputSize;
+    datatype?: DataType;
+    apikey: string;
+}
+
+// shape of intraday request
+  export interface AlphavantageIntradayRequest {
+    function: TimeSeriesFunction;
+    symbol: string;
+    interval: AlphavantageTimeFrame;
+    slice?: Slice;
+    adjusted?: Adjusted;
+    outputsize?: OutputSize;
+    datatype?: DataType;
+    apikey: string;
+}
+
+
   
   // Alphavantage intraday intervals
   export enum AlphavantageTimeFrame {
@@ -37,7 +63,7 @@ export enum AlphavantageEnpointParams {
   // By default, outputsize=compact. Strings compact and full are accepted with the following specifications: compact returns only the latest 100 data points; full returns the full-length time series of 20+ years of historical data. The "compact" option is recommended if you would like to reduce the data size of each API call.
   export enum OutputSize {
     COMPACT = 'Compact',  // default - 100 data points
-    FULL = 'Full',     // twenty years of historical data
+    FULL = 'Full',        // twenty years of historical data
   }
 
   // Alphavantage 'slice' (time slice)
