@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
 import { ChartSetting, ChartType, ScaleType, TimeFrame } from '../../common/interfaces';
+import * as av from '../../common/alphavantage';
 
 
 const defaultChartSetting = {
@@ -28,6 +29,16 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
   readonly timeframes = Object.values(TimeFrame);
   readonly chartTypes = Object.values(ChartType);
   readonly scaleTypes = Object.values(ScaleType);
+  readonly outputSizes = Object.values(av.OutputSize);
+  readonly slices = Object.values(av.Slice);
+  readonly adjusted = Object.values(av.Adjusted);
+  readonly dataTypes = Object.values(av.DataType);
+
+
+
+
+
+
   readonly settingsForm: FormGroup;
   tickerControl = new FormControl('TSLA');
   timeframeControl = new FormControl(TimeFrame.ONE_DAY);
@@ -35,6 +46,10 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
   scaleTypeControl = new FormControl(ScaleType.LINEAR);
   startDateControl = new FormControl('');
   endDateControl = new FormControl('');
+  outputSizeControl = new FormControl(av.OutputSize.COMPACT);
+  sliceControl = new FormControl(av.Slice.YEAR1MONTH1);
+  adjustedControl = new FormControl(av.Adjusted.TRUE);
+  dataTypeControl = new FormControl(av.DataType.JSON);
   
   
   settingsFormValues: ChartSetting = defaultChartSetting;
@@ -49,6 +64,10 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
       scaleTypeControl: this.scaleTypeControl,
       startDateControl: this.startDateControl,
       endDateControl: this.endDateControl,
+      outputSizeControl: this.outputSizeControl,
+      sliceControl: this.sliceControl,
+      adjustedControl: this.adjustedControl,
+      dataTypeControl: this.dataTypeControl,
   
     });
     

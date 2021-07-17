@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { ChartSetting, ChartType, ScaleType, TimeFrame } from '../../common/interfaces';
+import * as av from '../../common/alphavantage';
 
 @Component({
   selector: 'vz-charts-main',
