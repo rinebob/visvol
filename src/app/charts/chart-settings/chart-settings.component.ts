@@ -3,13 +3,19 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
-import { ChartSetting, ChartType, ScaleType, TimeFrame } from '../../common/interfaces';
+import { ChartSetting, ChartType, DataSetting, FullSetting, ScaleType, TimeFrame } from '../../common/interfaces';
 import * as av from '../../common/alphavantage';
+import { Chart } from 'highcharts';
 
+const DEFAULT_SYMBOL = 'TSLA';
 
-const defaultChartSetting = {
-  ticker: 'TSLA',
-  timeFrame: TimeFrame.ONE_DAY,
+const DEFAULT_CHART_SETTING: FullSetting = {
+  symbol: DEFAULT_SYMBOL,
+  timeFrame: TimeFrame.FIVE_MINUTE,
+  slice: av.Slice.YEAR1MONTH1,
+  adjusted: av.Adjusted.TRUE,
+  outputSize: av.OutputSize.COMPACT,
+  dataType: av.DataType.JSON,
   chartType: ChartType.LINE,
   scaleType: ScaleType.LINEAR,
   startDate: new Date(),
@@ -24,8 +30,11 @@ const defaultChartSetting = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChartSettingsComponent implements OnInit, OnDestroy {
-  @Output() chartSettings = new EventEmitter<ChartSetting>();
   readonly destroy = new Subject<void>();
+
+  @Output() chartSettings = new EventEmitter<ChartSetting>();
+  @Output() dataSettings = new EventEmitter<DataSetting>();
+  
   readonly timeframes = Object.values(TimeFrame);
   readonly chartTypes = Object.values(ChartType);
   readonly scaleTypes = Object.values(ScaleType);
@@ -34,14 +43,13 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
   readonly adjusted = Object.values(av.Adjusted);
   readonly dataTypes = Object.values(av.DataType);
 
-
-
-
-
-
   readonly settingsForm: FormGroup;
-  tickerControl = new FormControl('TSLA');
-  timeframeControl = new FormControl(TimeFrame.ONE_DAY);
+  settingsFormValues: FullSetting = DEFAULT_CHART_SETTING;
+  chartRequest: ChartSetting;
+  dataRequest: DataSetting;
+
+  symbolControl = new FormControl(DEFAULT_SYMBOL);
+  timeFrameControl = new FormControl(TimeFrame.ONE_DAY);
   chartTypeControl = new FormControl(ChartType.LINE);
   scaleTypeControl = new FormControl(ScaleType.LINEAR);
   startDateControl = new FormControl('');
@@ -52,22 +60,21 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
   dataTypeControl = new FormControl(av.DataType.JSON);
   
   
-  settingsFormValues: ChartSetting = defaultChartSetting;
 
   // chartSettings$: Observable<ChartSetting>;
 
   constructor() { 
     this.settingsForm = new FormGroup({
-      tickerControl: this.tickerControl,
-      timeframeControl: this.timeframeControl,
-      chartTypeControl: this.chartTypeControl,
-      scaleTypeControl: this.scaleTypeControl,
-      startDateControl: this.startDateControl,
-      endDateControl: this.endDateControl,
-      outputSizeControl: this.outputSizeControl,
-      sliceControl: this.sliceControl,
-      adjustedControl: this.adjustedControl,
-      dataTypeControl: this.dataTypeControl,
+      symbol: this.symbolControl,
+      timeFrame: this.timeFrameControl,
+      chartType: this.chartTypeControl,
+      scaleType: this.scaleTypeControl,
+      startDate: this.startDateControl,
+      endDate: this.endDateControl,
+      outputSize: this.outputSizeControl,
+      slice: this.sliceControl,
+      adjusted: this.adjustedControl,
+      dataType: this.dataTypeControl,
   
     });
     
@@ -75,19 +82,25 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy))
     .subscribe(values => {
       this.settingsFormValues = values;
-      console.log('cS ctor t.sFV values: ', values);
+      console.log('cS ctor t.sFV values: ', this.settingsFormValues);
+      this.dataRequest = this.generateDataRequest();
+      console.log('cS ctor generated request: ', this.dataRequest);
       
     });
   }
 
   ngOnInit() {
-    // this.settingsForm.patchValue({
-    //   'tickerControl': defaultChartSetting.ticker,
-    //   'timeframeControl': defaultChartSetting.timeFrame,
-    //   'chartTypeControl': defaultChartSetting.chartType,
-    //   'scaleTypeControl': defaultChartSetting.scaleType,
+    this.settingsForm.patchValue({
+      'symbol': DEFAULT_CHART_SETTING.symbol,
+      'timeFrame': DEFAULT_CHART_SETTING.timeFrame,
+      'chartType': DEFAULT_CHART_SETTING.chartType,
+      'scaleType': DEFAULT_CHART_SETTING.scaleType,
+      'slice': DEFAULT_CHART_SETTING.slice,
+      'adjusted': DEFAULT_CHART_SETTING.adjusted,
+      'outputSize': DEFAULT_CHART_SETTING.outputSize,
+      'dataType': DEFAULT_CHART_SETTING.dataType,
 
-    // });
+    });
   }
 
   ngOnDestroy () {
@@ -95,9 +108,33 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
     this.destroy.complete();
   }
 
+  generateDataRequest() {
+    const dataRequest: DataSetting = {
+      symbol: this.settingsFormValues.symbol,
+      timeFrame: this.settingsFormValues.timeFrame,
+      outputSize: this.settingsFormValues.outputSize,
+      slice: this.settingsFormValues.slice,
+      adjusted: this.settingsFormValues.adjusted,
+      dataType: this.settingsFormValues.dataType,
+    };
+
+    return dataRequest;
+
+  }
+
+  generateChartReqest() {
+    const chartRequest: ChartSetting = {
+
+    }
+
+    return chartRequest;
+
+  }
+
   submit() {
-    this.chartSettings.emit(this.settingsFormValues);
-    console.log('c s form submitted');
+    // const dataRequest = this.generateDataRequest();
+    this.dataSettings.emit(this.dataRequest);
+    console.log('cS submit form submitted.  Data request: ', this.dataRequest);
   }
 
 }

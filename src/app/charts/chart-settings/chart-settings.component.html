@@ -5,14 +5,14 @@
         <mat-form-field appearance="fill">
             <mat-label>Symbol</mat-label>
             <input matInput type="text"
-                    formControlName="tickerControl"
+                    formControlName="symbol"
                     placeholder="Ticker">
         </mat-form-field>
         
         <!-- Time frame -->
         <mat-form-field appearance="fill">
             <mat-label>Timeframe</mat-label>
-            <mat-select formControlName="timeframeControl"
+            <mat-select formControlName="timeFrame"
                         placeholder="Time frame">
                 <mat-option *ngFor="let item of timeframes"
                             [value]="item" >{{item}}</mat-option>
@@ -22,7 +22,7 @@
         <!-- output size -->
         <mat-form-field appearance="fill">
             <mat-label>Output size</mat-label>
-            <mat-select formControlName="outputSizeControl"
+            <mat-select formControlName="outputSize"
                         placeholder="Output size">
                 <mat-option *ngFor="let item of outputSizes"
                             [value]="item" >{{item}}</mat-option>
@@ -32,7 +32,7 @@
         <!-- slice -->
         <mat-form-field appearance="fill">
             <mat-label>Time slice</mat-label>
-            <mat-select formControlName="sliceControl"
+            <mat-select formControlName="slice"
                         placeholder="Time slice">
                 <mat-option *ngFor="let item of slices"
                             [value]="item" >{{item}}</mat-option>
@@ -42,7 +42,7 @@
         <!-- adjusted -->
         <mat-form-field appearance="fill">
             <mat-label>Adjusted</mat-label>
-            <mat-select formControlName="adjustedControl"
+            <mat-select formControlName="adjusted"
                         placeholder="Adjusted">
                 <mat-option *ngFor="let item of adjusted"
                             [value]="item" >{{item}}</mat-option>
@@ -52,7 +52,7 @@
         <!-- data type -->
         <mat-form-field appearance="fill">
             <mat-label>Data type</mat-label>
-            <mat-select formControlName="dataTypeControl"
+            <mat-select formControlName="dataType"
                         placeholder="Data type">
                 <mat-option *ngFor="let item of dataTypes"
                             [value]="item" >{{item}}</mat-option>
@@ -66,7 +66,7 @@
          <!-- chart type -->
          <mat-form-field appearance="fill">
             <mat-label>Chart type</mat-label>
-            <mat-select formControlName="chartTypeControl"
+            <mat-select formControlName="chartType"
                         placeholder="Chart type">
                 <mat-option *ngFor="let item of chartTypes"
                             [value]="item" >{{item}}</mat-option>
@@ -76,7 +76,7 @@
         <!-- scale type -->
         <mat-form-field appearance="fill">
             <mat-label>Scale type</mat-label>
-            <mat-select formControlName="scaleTypeControl"
+            <mat-select formControlName="scaleType"
                         placeholder="Scale type">
                 <mat-option *ngFor="let item of scaleTypes"
                             [value]="item" >{{item}}</mat-option>

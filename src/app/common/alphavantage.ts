@@ -1,8 +1,10 @@
-
+import { DataSetting, FullSetting } from "./interfaces"
 // Alphavantage API endpoint URL
+import { Alphavantage_API_KEY } from 'src/secrets/secrets';
 export const AV_URL = 'https://www.alphavantage.co'
+
 // Alphavantage endpoint parameters
-export enum AvParams {
+export enum Params {
     FUNCTION = 'function',
     SYMBOL = 'symbol',
     INTERVAL = 'interval',
@@ -13,20 +15,48 @@ export enum AvParams {
     APIKEY = 'apikey',
   }
 
-  // Shape of daily weekly monthly request
+export interface Metadata {
+    information: string;
+    symbol: string;
+    last_refreshed: string;
+    output_size: string;
+    time_zone: string;
+}
+
+export interface DayChartData {
+    open: string;
+    high: string;
+    low: string;
+    close: string;
+    adjusted_close: string;
+    volume: string;
+    dividend_amount: string;
+    split_coefficient: string;
+
+}
+
+export interface DayTimeSeries {
+    [key:string] : DayChartData;
+}
+
+export interface DayResponse {
+    metadata: Metadata;
+    time_series: DayTimeSeries;
+}
+
+export interface IntradayChartData {
+    open: string;
+    high: string;
+    low: string;
+    close: string;
+    volume: string;
+}
+
+// shape of request
   export interface AlphavantageRequest {
     function: TimeSeriesFunction;
     symbol: string;
-    outputsize?: OutputSize;
-    datatype?: DataType;
-    apikey: string;
-}
-
-// shape of intraday request
-  export interface AlphavantageIntradayRequest {
-    function: TimeSeriesFunction;
-    symbol: string;
-    interval: AlphavantageTimeFrame;
+    interval?: Interval;
     slice?: Slice;
     adjusted?: Adjusted;
     outputsize?: OutputSize;
@@ -34,10 +64,163 @@ export enum AvParams {
     apikey: string;
 }
 
+const intradayTimes = ['1min', '5min', '15min', '30min', '60min'];
 
-  
+function generateTimeType(timeFrame: string) {
+    const timeType = 
+        intradayTimes.includes(timeFrame) ? 'INTRADAY'
+        : timeFrame === 'Daily' ? 'DAILY' 
+        : timeFrame === 'Weekly' ? 'WEEKLY' 
+        : 'MONTHLY';
+
+    console.log('aV gTT timeType: ', timeType);
+
+    return timeType;
+}
+
+function generateFunctionString(req: DataSetting) {
+    const timeType = generateTimeType(req.timeFrame);
+    const func = `TIME_SERIES_${timeType}`;
+    const slice = req.slice.split(' ').join('').toLowerCase();
+
+    let funcString = '';
+    if (timeType === 'INTRADAY') {
+        funcString = slice === 'year1month1' ? func : `${func}_EXTENDED`;
+
+    } else if (timeType === 'DAILY') { 
+        funcString = req.adjusted ? `${func}_ADJUSTED` : func;
+    }
+
+    console.log('aV gFS funcString: ', funcString);
+
+    return funcString;
+}
+
+export function generateRequestString (req: DataSetting) {
+
+    console.log('aV cR input request: ', req);
+
+    
+    const funcString = generateFunctionString(req);
+    const symbol = req.symbol;
+    const interval = req.timeFrame;
+    const slice = req.slice.split(' ').join('').toLowerCase();
+    const extended = slice !== 'year1month1' ? '_EXTENDED' : '';
+    const adjusted = req.adjusted === 'Adjusted' ? true : false;
+    const outputSize = req.outputSize.toLowerCase(); 
+    const dataType = req.dataType; 
+
+    console.log('av cR funcString: ', funcString);
+    console.log('av cR symbol: ', symbol);
+    console.log('av cR interval: ', interval);
+    console.log('av cR extended: ', extended);
+    console.log('av cR slice: ', slice);
+    console.log('av cR adjusted: ', adjusted);
+    console.log('av cR : outputSize', outputSize);
+    console.log('av cR : dataType', dataType);
+
+    // let funcString = '';
+    let reqString = '';
+
+    // const requestInfo = {funcString, symbol, interval, extended, slice, adjusted, outputSize, dataType};
+
+    const timeType = generateTimeType(req.timeFrame);
+
+    switch(timeType) {
+        case 'INTRADAY':
+            if (slice === 'year1month1') {
+                console.log('aV gRS intraday');
+                reqString = 
+                    AV_URL + 
+                    '/query?' + 
+                    'function=' + generateFunctionString(req) + 
+                    '&symbol=' + symbol + 
+                    '&interval=' + interval + 
+                    '&adjusted=' + adjusted +
+                    '&outputsize=' + OutputSize +
+                    '&datatype=' + dataType + 
+                    '&apikey=' + Alphavantage_API_KEY;
+            } else {
+                console.log('aV gRS intraday extended');
+                reqString = 
+                    AV_URL + 
+                    '/query?' + 
+                    'function=' + generateFunctionString(req) + 
+                    '&symbol=' + symbol + 
+                    '&interval=' + interval + 
+                    '&slice=' + slice +
+                    '&adjusted=' + adjusted + 
+                    '&apikey=' + Alphavantage_API_KEY;
+            }
+          
+            break;
+        case 'DAILY':
+            console.log('aV gRS daily');
+            reqString = 
+                AV_URL + 
+                '/query?' + 
+                'function=' + generateFunctionString(req) + 
+                '&symbol=' + symbol + 
+                '&datatype=' + dataType + 
+                '&apikey=' + Alphavantage_API_KEY;
+          
+            break;
+        case 'WEEKLY':
+            console.log('aV gRS weekly');
+            reqString = 
+                AV_URL + 
+                '/query?' + 
+                'function=' + 'TIME_SERIES_WEEKLY' + 
+                '&symbol=' + symbol + 
+                '&datatype=' + dataType + 
+                '&apikey=' + Alphavantage_API_KEY;
+          
+          break;
+        case 'MONTHLY':
+            console.log('aV gRS monthly');
+            reqString = 
+                AV_URL +
+                '/query?' +
+                'function=' + 'TIME_SERIES_MONTHLY' +
+                '&symbol=' + symbol +
+                '&datatype=' + dataType +
+                '&apikey=' + Alphavantage_API_KEY;
+
+          break;
+        default: 'Did not match timeframe (wtf???)';
+          
+      }
+
+      console.log('aV eRI request string: ', reqString);
+
+
+    return reqString;
+
+    
+
+}
+
+export interface DayRequest {
+    function: TimeSeriesFunction;
+    symbol: string;
+    outputsize?: OutputSize;
+    datatype?: DataType;
+    apikey: string;
+}
+
+export interface IntradayRequest {
+    function: TimeSeriesFunction;
+    symbol: string;
+    interval?: Interval;
+    slice?: Slice;
+    adjusted?: Adjusted;
+    outputsize?: OutputSize;
+    datatype?: DataType;
+    apikey: string;
+}
+
   // Alphavantage intraday intervals
-  export enum AlphavantageTimeFrame {
+  export enum Interval {
     ONE_MINUTE = '1min',
     FIVE_MINUTE = '5min',
     FIFTEEN_MINUTE = '15min',
@@ -107,3 +290,5 @@ export enum AvParams {
     JSON = 'JSON',   // default
     CSV = 'CSV',
   }
+
+ 
