@@ -2,12 +2,19 @@
 
 .settings-form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
+    .settings-row {
+        display: flex;
+        align-items: center;
+        height: 100px;
+    }
+
     ::ng-deep {
         .mat-form-field-wrapper {
-            // padding: 0;
+            margin: 0;
         }
     }
 
