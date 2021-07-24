@@ -1,8 +1,18 @@
 <div class="charts charts-container">
-    <vz-chart-settings (chartSettings)="updateChart($event)"
-                       (dataSettings)="getData($event)">
+    
+    <vz-chart-settings (chartSettings)="updateChartSettings($event)"
+                       (dataSettings)="updateDataSettings($event)">
     </vz-chart-settings>
-    <vz-chart></vz-chart>
+    
+    <vz-chart [data]="chartData$ | async">
+    </vz-chart>
+
+    <!-- <ng-container *ngFor="let item of (chartData$ | async)">
+        <div class="data">Date: {{item.date}}</div>
+        <div class="data">Close: {{item.close}}</div>
+    </ng-container> -->
+    
     
 </div>
+
 <vz-ticker-list></vz-ticker-list>

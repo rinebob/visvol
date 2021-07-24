@@ -1,1 +1,6 @@
-<p>chart works!</p>
+<!-- <div id="chartHost"></div> -->
+
+<ng-container *ngFor="let item of (chartData$ | async)">
+    <div class="data">Date: {{item.date}}</div>
+    <div class="data">Data: {{item | json}}</div>
+</ng-container>
