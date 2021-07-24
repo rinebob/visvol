@@ -2,7 +2,7 @@ import {OHLCData, OHLC_INITIALIZER, TimeFrame } from './interfaces';
 import {IntradayChartData} from './alphavantage';
 
 // method to convert Alphavantage intraday data into VisVol specific intraday data series
-export function convertAvToVz(data: any) {
+export function convertAvToVz(data: any):OHLCData[] {
     // console.log('aU cITGS input data: ', data);
 
     const dataKeys = Object.keys(data);
