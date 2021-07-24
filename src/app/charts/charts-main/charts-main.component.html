@@ -2,7 +2,8 @@
     <vz-chart-settings (chartSettings)="updateChart($event)"
                        (dataSettings)="getData($event)">
     </vz-chart-settings>
-    <vz-chart></vz-chart>
+    <vz-chart [chartData]="chartData">
+    </vz-chart>
     
 </div>
 <vz-ticker-list></vz-ticker-list>

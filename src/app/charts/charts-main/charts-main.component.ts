@@ -6,6 +6,7 @@ import { ChartDataService } from 'src/app/services/chart-data.service';
 
 import { ChartSetting, ChartType, DataSetting, FullSetting, ScaleType, TimeFrame } from '../../common/interfaces';
 import * as av from '../../common/alphavantage';
+import * as avUtils from '../../common/alphavantage_utils';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ChartsMainComponent implements OnDestroy, OnInit {
 
   intradayChartData: av.IntradayChartData[];
   dayChartData: av.DayChartData;
+  chartData;
 
   constructor(private chartDataService: ChartDataService) { }
 
@@ -35,12 +37,22 @@ export class ChartsMainComponent implements OnDestroy, OnInit {
   }
 
   getData(event: DataSetting) {
-    console.log('cM gD event: ', event);
+    // console.log('cM gD event: ', event);
 
     this.chartDataService.getAlphavantageData(event)
     .pipe(takeUntil(this.destroy))
     .subscribe(
-      data => console.log('cM gD response: ', data)
+      data => {
+        console.log('cM gD response: ', data);
+
+        // if metadata says intraday
+        this.chartData = avUtils.convertAvToVz(data);
+        // console.log('cM gD converted chart data: ');
+        // console.table(this.chartData);
+
+        // if metadata says daily etc.
+
+      }
     );
 
 
