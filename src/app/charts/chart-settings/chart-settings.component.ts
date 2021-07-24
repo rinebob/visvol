@@ -11,7 +11,7 @@ const DEFAULT_SYMBOL = 'TSLA';
 
 const DEFAULT_CHART_SETTING: FullSetting = {
   symbol: DEFAULT_SYMBOL,
-  timeFrame: TimeFrame.FIVE_MINUTE,
+  timeFrame: TimeFrame.DAILY,
   slice: av.Slice.YEAR1MONTH1,
   adjusted: av.Adjusted.TRUE,
   outputSize: av.OutputSize.COMPACT,
@@ -49,7 +49,7 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
   dataRequest: DataSetting;
 
   symbolControl = new FormControl(DEFAULT_SYMBOL);
-  timeFrameControl = new FormControl(TimeFrame.ONE_DAY);
+  timeFrameControl = new FormControl(TimeFrame.DAILY);
   chartTypeControl = new FormControl(ChartType.LINE);
   scaleTypeControl = new FormControl(ScaleType.LINEAR);
   startDateControl = new FormControl('');
@@ -134,7 +134,7 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
   submit() {
     // const dataRequest = this.generateDataRequest();
     this.dataSettings.emit(this.dataRequest);
-    console.log('cS submit form submitted.  Data request: ', this.dataRequest);
+    // console.log('cS submit form submitted.  Data request: ', this.dataRequest);
   }
 
 }

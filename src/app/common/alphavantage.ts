@@ -73,7 +73,7 @@ function generateTimeType(timeFrame: string) {
         : timeFrame === 'Weekly' ? 'WEEKLY' 
         : 'MONTHLY';
 
-    console.log('aV gTT timeType: ', timeType);
+    // console.log('aV gTT timeType: ', timeType);
 
     return timeType;
 }
@@ -91,14 +91,14 @@ function generateFunctionString(req: DataSetting) {
         funcString = req.adjusted ? `${func}_ADJUSTED` : func;
     }
 
-    console.log('aV gFS funcString: ', funcString);
+    // console.log('aV gFS funcString: ', funcString);
 
     return funcString;
 }
 
 export function generateRequestString (req: DataSetting) {
 
-    console.log('aV cR input request: ', req);
+    // console.log('aV cR input request: ', req);
 
     
     const funcString = generateFunctionString(req);
@@ -110,14 +110,14 @@ export function generateRequestString (req: DataSetting) {
     const outputSize = req.outputSize.toLowerCase(); 
     const dataType = req.dataType; 
 
-    console.log('av cR funcString: ', funcString);
-    console.log('av cR symbol: ', symbol);
-    console.log('av cR interval: ', interval);
-    console.log('av cR extended: ', extended);
-    console.log('av cR slice: ', slice);
-    console.log('av cR adjusted: ', adjusted);
-    console.log('av cR : outputSize', outputSize);
-    console.log('av cR : dataType', dataType);
+    // console.log('av cR funcString: ', funcString);
+    // console.log('av cR symbol: ', symbol);
+    // console.log('av cR interval: ', interval);
+    // console.log('av cR extended: ', extended);
+    // console.log('av cR slice: ', slice);
+    // console.log('av cR adjusted: ', adjusted);
+    // console.log('av cR : outputSize', outputSize);
+    // console.log('av cR : dataType', dataType);
 
     // let funcString = '';
     let reqString = '';
@@ -129,7 +129,7 @@ export function generateRequestString (req: DataSetting) {
     switch(timeType) {
         case 'INTRADAY':
             if (slice === 'year1month1') {
-                console.log('aV gRS intraday');
+                // console.log('aV gRS intraday');
                 reqString = 
                     AV_URL + 
                     '/query?' + 
@@ -141,7 +141,7 @@ export function generateRequestString (req: DataSetting) {
                     '&datatype=' + dataType + 
                     '&apikey=' + Alphavantage_API_KEY;
             } else {
-                console.log('aV gRS intraday extended');
+                // console.log('aV gRS intraday extended');
                 reqString = 
                     AV_URL + 
                     '/query?' + 
@@ -155,18 +155,19 @@ export function generateRequestString (req: DataSetting) {
           
             break;
         case 'DAILY':
-            console.log('aV gRS daily');
+            // console.log('aV gRS daily');
             reqString = 
                 AV_URL + 
                 '/query?' + 
                 'function=' + generateFunctionString(req) + 
                 '&symbol=' + symbol + 
+                '&outputsize=' + outputSize + 
                 '&datatype=' + dataType + 
                 '&apikey=' + Alphavantage_API_KEY;
           
             break;
         case 'WEEKLY':
-            console.log('aV gRS weekly');
+            // console.log('aV gRS weekly');
             reqString = 
                 AV_URL + 
                 '/query?' + 
@@ -177,7 +178,7 @@ export function generateRequestString (req: DataSetting) {
           
           break;
         case 'MONTHLY':
-            console.log('aV gRS monthly');
+            // console.log('aV gRS monthly');
             reqString = 
                 AV_URL +
                 '/query?' +
