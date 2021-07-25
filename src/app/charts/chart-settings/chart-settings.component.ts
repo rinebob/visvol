@@ -82,9 +82,9 @@ export class ChartSettingsComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy))
     .subscribe(values => {
       this.settingsFormValues = values;
-      console.log('cS ctor t.sFV values: ', this.settingsFormValues);
+      // console.log('cS ctor t.sFV values: ', this.settingsFormValues);
       this.dataRequest = this.generateDataRequest();
-      console.log('cS ctor generated request: ', this.dataRequest);
+      // console.log('cS ctor generated request: ', this.dataRequest);
       
     });
   }

@@ -49,25 +49,50 @@ export interface IntradayDataSetting {
 // }
 
 export const OHLC_INITIALIZER: OHLCData = {
-  date: '',
-  open: '',
-  high: '',
-  low: '',
-  close: '',
-  volume: '',
+  date: new Date(Date.now()),
+  stringDate: '',
+  open: 0,
+  high: 0,
+  low: 0,
+  close: 0,
+  volume: 0,
 }
 
 export interface OHLCData {
-  date: string;
-  open: string;
-  high: string;
-  low: string;
-  close: string;
-  adjustedClose?: string;
-  volume: string;
-  dividendAmount?: string;
-  splitCoefficient?: string;
+  date: Date;
+  stringDate?: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  adjustedClose?: number;
+  volume: number;
+  dividendAmount?: number;
+  splitCoefficient?: number;
 }
+
+// export const OHLC_INITIALIZER: OHLCData = {
+//   date: new Date(Date.now()),
+//   stringDate: '',
+//   open: '',
+//   high: '',
+//   low: '',
+//   close: '',
+//   volume: '',
+// }
+
+// export interface OHLCData {
+//   date: Date;
+//   stringDate?: string;
+//   open: string;
+//   high: string;
+//   low: string;
+//   close: string;
+//   adjustedClose?: string;
+//   volume: string;
+//   dividendAmount?: string;
+//   splitCoefficient?: string;
+// }
 
 // export const DAY_OHLC_INITIALIZER: DayOHLCData = {
 //   date: '',
