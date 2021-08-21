@@ -1,3 +1,4 @@
+import { Type } from '@angular/core';
 import * as av from './alphavantage'
 export interface FullSetting {
   symbol: string;
@@ -131,4 +132,81 @@ export enum ScaleType {
   LINEAR = 'linear',
   LOG = 'log',
 }
+
+export interface OptionQuote {
+  open: number | string;
+  high: number | string;
+  low: number | string;
+  close: number | string;
+  volume: number | string;
+  date: Date;
+}
+
+export interface Option {
+  symbol: string;
+  type: OptionType;
+  underlying: string;
+  strike: number;
+  expiration: Date;
+  exchange: Exchange;
+}
+
+export interface OptionLeg {
+  symbol: string;
+  direction: Direction;
+
+}
+
+export interface OptionPositionConfig {
+  name: string;
+  legs: OptionLeg[];
+}
+
+export interface OptionPosition {
+  underlying: string;
+  dateOpened: Date;
+  config: OptionPositionConfig;
+  data: PositionPricePoint[];
+
+}
+
+export interface OptionSymbolData {
+  symbol: string;
+  data: OptionQuote[];
+}
+
+export interface PositionPricePoint {
+  date: Date;
+  price: number;
+}
+
+export type Direction = 'LONG' | 'SHORT';
+export type OptionType = 'CALL' | 'PUT';
+
+export enum Exchange {
+  CHICAGO_BOARD_OPTIONS_EXCHANGE = 'CBOE',
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
