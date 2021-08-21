@@ -20,7 +20,6 @@ export class ChartsMainComponent implements OnDestroy, OnInit {
 
   // intradayChartData: av.IntradayChartData[];
   // dayChartData: av.DayChartData;
-  chartData: OHLCData[];
   chartData$:Observable<OHLCData[]>;
 
   constructor(private chartDataService: ChartDataService) { }
@@ -46,19 +45,6 @@ export class ChartsMainComponent implements OnDestroy, OnInit {
 
   getData(event: DataSetting) {
     // console.log('cM gD event: ', event);
-
     this.chartData$ = this.chartDataService.getAlphavantageOHLCData(event);
-
-    this.chartDataService.getAlphavantageData(event)
-    .pipe(takeUntil(this.destroy))
-    .subscribe(
-      data => {
-        // console.log('cM gD response: ', data);
-        this.chartData = [...avUtils.convertAvToVz(data)];
-        console.log('cM gD converted chart data: ', this.chartData);
-        // console.table(this.chartData);
-
-      }
-    );
   }
 }

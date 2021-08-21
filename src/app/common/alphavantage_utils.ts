@@ -3,7 +3,7 @@ import {IntradayChartData} from './alphavantage';
 
 // method to convert Alphavantage intraday data into VisVol specific intraday data series
 export function convertAvToVz(data: any):OHLCData[] {
-    // console.log('aU cITGS input data: ', data);
+    console.log('aU cITGS input data: ', data);
 
     const dataKeys = Object.keys(data);
     // console.log('aU cITGS data keys: ', dataKeys);
@@ -42,7 +42,6 @@ export function convertAvToVz(data: any):OHLCData[] {
     }
 }
 
-
 function convertToDailyFormat(timeSeriesArray: any): OHLCData[] {
     // console.log('aU cTDF input timeSeries: ', timeSeriesArray);
     const dayOHLCData: OHLCData[] = [];
@@ -50,15 +49,16 @@ function convertToDailyFormat(timeSeriesArray: any): OHLCData[] {
         value => {
             // console.log('aU cITGS input value: ', value);
             const dataPoint: OHLCData = OHLC_INITIALIZER;
-            dataPoint.date = value[0];
-            dataPoint.open = value[1]['1. open'];
-            dataPoint.high = value[1]['2. high'];
-            dataPoint.low = value[1]['3. low'];
-            dataPoint.close = value[1]['4. close'];
-            dataPoint.adjustedClose = value[1]['5. adjusted close'];
-            dataPoint.volume = value[1]['6. volume'];
-            dataPoint.dividendAmount = value[1]['7. dividend amount'];
-            dataPoint.splitCoefficient = value[1]['8. split coefficient'];
+            dataPoint.date = new Date(value[0]);
+            dataPoint.stringDate = value[0];
+            dataPoint.open = Number(value[1]['1. open']);
+            dataPoint.high = Number(value[1]['2. high']);
+            dataPoint.low = Number(value[1]['3. low']);
+            dataPoint.close = Number(value[1]['4. close']);
+            dataPoint.adjustedClose = Number(value[1]['5. adjusted close']);
+            dataPoint.volume = Number(value[1]['6. volume']);
+            dataPoint.dividendAmount = Number(value[1]['7. dividend amount']);
+            dataPoint.splitCoefficient = Number(value[1]['8. split coefficient']);
 
             dayOHLCData.push({...dataPoint});
 
@@ -70,30 +70,27 @@ function convertToDailyFormat(timeSeriesArray: any): OHLCData[] {
     return dayOHLCData;
 }
 
-// methods to convert object {key: [date: string], value: {o:string, h: string, l:string, c:string, v:string}} to
-// array of objects [{date, open, high, low, close, volume},]
 function convertToNonDailyFormat(timeSeriesArray: any): OHLCData[] {
     // console.log('aU cTNDF input timeSeries: ', timeSeriesArray);
-    const nonDayOHLCData: OHLCData[] = [];
+    const dayOHLCData: OHLCData[] = [];
     timeSeriesArray.forEach(
         value => {
             // console.log('aU cITGS input value: ', value);
             const dataPoint: OHLCData = OHLC_INITIALIZER;
-            dataPoint.date = value[0];
-            dataPoint.open = value[1]['1. open'];
-            dataPoint.high = value[1]['2. high'];
-            dataPoint.low = value[1]['3. low'];
-            dataPoint.close = value[1]['4. close'];
-            dataPoint.volume = value[1]['5. volume'];
+            dataPoint.date = new Date(value[0]);
+            dataPoint.stringDate = value[0];
+            dataPoint.open = Number(value[1]['1. open']);
+            dataPoint.high = Number(value[1]['2. high']);
+            dataPoint.low = Number(value[1]['3. low']);
+            dataPoint.close = Number(value[1]['4. close']);
+            dataPoint.volume = Number(value[1]['6. volume']);
+            
+            dayOHLCData.push({...dataPoint});
 
-            nonDayOHLCData.push({...dataPoint});
 
-
-            // console.log('aU cITGS dataPoint: ', dataPoint);
+            // console.log('aU cTNDF dataPoint: ', dataPoint);
         }
     );
 
-    return nonDayOHLCData;
-
+    return dayOHLCData;
 }
-
