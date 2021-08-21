@@ -40,22 +40,23 @@ export class ChartDataService {
     // working code - DO NOT DELETE
     // note: alpha vantage rate limits to 5 req/min and 500 req/day
     // use return of(data) as replacement to limit calls
-    // return this.http.get<OHLCData[]>(reqString).pipe(
-    //   map(resp => {
-    //     const data = alphaUtils.convertAvToVz(resp);
-    //     // console.log('cDS gAOD data: ', data);
-    //     return data;
-    //   })
-    // );
-    //=============================
-
-    return of(TSLA_D).pipe(
+    return this.http.get<OHLCData[]>(reqString).pipe(
       map(resp => {
+        console.log('cDS gAOD response: ', resp);
         const data = alphaUtils.convertAvToVz(resp);
         console.log('cDS gAOD data: ', data);
         return data;
       })
     );
+    //=============================
+
+    // return of(TSLA_D).pipe(
+    //   map(resp => {
+    //     const data = alphaUtils.convertAvToVz(resp);
+    //     console.log('cDS gAOD data: ', data);
+    //     return data;
+    //   })
+    // );
 
   }
 
