@@ -1,6 +1,6 @@
 <form [formGroup]="settingsForm" class="settings-form" (ngSubmit)="submit()">
 
-    <div class="settings-header">Data settings</div>
+    <!-- <div class="settings-header">Data settings</div> -->
     <div class="settings-row">
         <mat-form-field appearance="fill">
             <mat-label>Symbol</mat-label>
@@ -59,9 +59,9 @@
             </mat-select>
         </mat-form-field>
 
-    </div>
+    <!-- </div>
     <div class="settings-header">Chart settings</div>
-    <div class="settings-row">
+    <div class="settings-row"> -->
 
          <!-- chart type -->
          <mat-form-field appearance="fill">
@@ -83,12 +83,14 @@
             </mat-select>
         </mat-form-field>
 
-        <button mat-raised-button 
-                class="submit-button"
-                type="submit"
-                color="primary">
-            Submit
-        </button>
+        <div class="button-container">
+            <button mat-raised-button 
+                    class="submit-button"
+                    type="submit"
+                    color="primary">
+                Submit
+            </button>
+        </div>
         
        
 
