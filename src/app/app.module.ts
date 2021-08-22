@@ -22,6 +22,7 @@ import { ToolsModule } from './tools/tools.module';
 import {WelcomeModule } from './welcome/welcome.module';
 
 import { AppComponent } from './app.component';
+import { PositionBuilderService } from './services/position-builder.service';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import { AppComponent } from './app.component';
 	MainModule,
 	WelcomeModule,
   ],
-  providers: [],
+  providers: [PositionBuilderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

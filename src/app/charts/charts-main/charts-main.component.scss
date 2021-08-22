@@ -10,6 +10,7 @@
 
 
 .charts-container {
+    align-items: flex-start;
     align-self: stretch;
     display: flex;
     flex: 1 0 auto;
@@ -18,17 +19,17 @@
     // width: 90%;
 
     vz-chart-settings {
-        display: flex;
-        justify-content: center;
+        // display: flex;
+        // justify-content: center;
         // height: 120px;
-        // width: 100%;
+        width: 100%;
     }
     
     
-    vz-chart {
-        flex: 1 0 auto;
+    // vz-chart {
+    //     flex: 1 0 auto;
     
-    }
+    // }
 
 }
 
